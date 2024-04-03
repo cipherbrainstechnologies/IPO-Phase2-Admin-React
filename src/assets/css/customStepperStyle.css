@@ -1,0 +1,16 @@
+.chat-icon-style {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.chat-icon-style:hover {
+  opacity: 1;
+}
+
+.chat-icon-style i {
+  font-size: 45px;
+  color: #009270 !important;
+}

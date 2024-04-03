@@ -1,0 +1,7 @@
+.main-bg-image-div {
+  height: 100vh;
+  background-image: url("../media/bg/bg10.jpeg");
+}
+[data-theme="dark"] .main-bg-image-div {
+  background-image: url("../media/bg/bg10-dark.jpeg");
+}
