@@ -119,7 +119,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       }
     }
   };
-
+console.log("tooltip data",getIPODataById?.toolTipData)
   return (
     <>
       <div>
@@ -155,7 +155,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                 promotersName: getIPODataById?.promotersName,
                 Strength: getIPODataById?.Strength,
                 Risk: getIPODataById?.Risk,
-                toolTip:getIPODataById?.toolTip,
+                toolTip:getIPODataById?.toolTipData?.[0],
                 disclaimer: getIPODataById?.disclaimer,
                 checkLiveSubscriptionUrl:
                   getIPODataById?.checkLiveSubscriptionUrl,
@@ -553,21 +553,21 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                                                     name="toolTip"
                                                     className="form-control mb-2"
                                                     placeholder="Tool TIP"
-                                                    style={{ height: "100px", width: "100%" , backgroundColor:color+25 , color:color }}
+                                                    style={{ height: "100px", width: "100%" , backgroundColor: (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1]+25 : color+25 , color:  (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color }}
                                                     onFocus={() => setShowColorPicker(false)}
                                                 
                                                 />
                                             )}
                                         </Field>{" "}
                                         {showColorPicker && (
-                <SketchPicker color={color} onChange={handleColorChange} />
-            )}
+        <SketchPicker color={(getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color} onChange={handleColorChange} />
+    )}
                    <Field
                   type="text"
                   name="toolTipColor"
                   className="form-control mb-2"
                   placeholder="Tool Tip color"
-                  value={color}
+                  value={ (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color}
                  
                   onFocus={() => setShowColorPicker(true)}
                         
