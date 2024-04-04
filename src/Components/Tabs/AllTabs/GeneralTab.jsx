@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 import "../../../assets/css/style.bundle.css";
@@ -29,10 +29,11 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
     AnchorInvestors: Yup.string().url('Invalid URL'),
   });
   const dispatch = useDispatch();
-  const [color, setColor] = useState('#ff0000'); // Initial color is white
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const handleColorChange = (newColor) => {
-    setColor(newColor.hex); // Update color state with hex value of selected color
+  const handleColorChange = (newColor, setFieldValue) => {
+    const hexColor = newColor.hex; // Get hex value of selected color
+    setFieldValue('toolTipColor', hexColor); // Update color property in toolTipData object
+    setColor(hexColor); // Update local color state
   };
   const ipoType = localStorage.getItem("ipoType");
   const { activeTab } = useContext(TabContext);
@@ -47,6 +48,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       dispatch(getIpoById({ payload }));
     }
   }, []);
+  const [color, setColor] = useState(getIPODataById.toolTipData && getIPODataById.toolTipData[1] ? getIPODataById.toolTipData[1] :'#ff0000'); // Initial color is white
 
   useEffect(() => {
     let newID = localStorage.getItem("ID");
@@ -64,7 +66,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
     const payload = {
       CategoryForIPOS: ipoType,
       companyName: values?.companyName,
-      toolTipData:[values?.toolTip , color],
+      toolTipData: [values?.toolTip, color],
       companyDescription: values?.companyDescription,
       ObjectOfIssue: values?.ObjectOfIssue,
       faceValue: values?.faceValue,
@@ -95,7 +97,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       Risk: values?.Risk,
       checkAllotment: values?.checkAllotment,
     };
-    console.log("payload" , payload)
+    console.log("payload", payload)
     if (ipoEdit) {
       payload.id = getIPODataById?.id;
       payload.algoliaID = getIPODataById?.algoliaID;
@@ -119,7 +121,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       }
     }
   };
-console.log("tooltip data",getIPODataById?.toolTipData)
+  console.log("tooltip data", getIPODataById?.toolTipData)
   return (
     <>
       <div>
@@ -155,7 +157,8 @@ console.log("tooltip data",getIPODataById?.toolTipData)
                 promotersName: getIPODataById?.promotersName,
                 Strength: getIPODataById?.Strength,
                 Risk: getIPODataById?.Risk,
-                toolTip:getIPODataById?.toolTipData?.[0],
+                toolTip: getIPODataById?.toolTipData?.[0],
+                toolTipColor:getIPODataById?.toolTipData?.[1],
                 disclaimer: getIPODataById?.disclaimer,
                 checkLiveSubscriptionUrl:
                   getIPODataById?.checkLiveSubscriptionUrl,
@@ -188,7 +191,8 @@ console.log("tooltip data",getIPODataById?.toolTipData)
                 postIssueShareHolding: "",
                 promotersName: [],
                 Strength: [],
-                toolTip:"",
+                toolTip: "",
+                toolTipColor:"",
                 Risk: [],
                 disclaimer: "No financial information published within this application, including but not limited to information regarding securities or IPOs, should be considered as advice to buy or sell securities or to invest in IPOs, or as a guide to doing so in any way whatsoever. All content published in this application is provided solely for educational and informational purposes, and under no circumstances should it be used for making investment decisions. We are not a SEBI registered analyst.Readers must consult a qualified financial advisor before making any actual investment decisions based on information published in this application. The information in this application is based on information available as of the date of publication, along with market perceptions, and may be subject to change without notice.",
                 checkLiveSubscriptionUrl: "",
@@ -200,7 +204,7 @@ console.log("tooltip data",getIPODataById?.toolTipData)
             handleSubmit(values);
           }}
         >
-          {({ values, errors, touched }) => (
+          {({ values, errors, touched , setFieldValue }) => (
             <Form>
               <div className="card card-flush py-4">
                 <div className="card-header">
@@ -542,35 +546,35 @@ console.log("tooltip data",getIPODataById?.toolTipData)
                 </div>
               </div>
               {/* zala changes */}
-              <div className="mb-10 fv-row mt-10" style={{backgroundColor:"white" , padding:25 , borderRadius:5}}>
+              <div className="mb-10 fv-row mt-10" style={{ backgroundColor: "white", padding: 25, borderRadius: 5 }}>
                 <label className=" form-label">Tool Tip</label>
-             
-                     <Field name="toolTip">
-                                            {({ field }) => (
-                                                <textarea
-                                                {...field}
-                                                    type="textarea"
-                                                    name="toolTip"
-                                                    className="form-control mb-2"
-                                                    placeholder="Tool TIP"
-                                                    style={{ height: "100px", width: "100%" , backgroundColor: (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1]+25 : color+25 , color:  (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color }}
-                                                    onFocus={() => setShowColorPicker(false)}
-                                                
-                                                />
-                                            )}
-                                        </Field>{" "}
-                                        {showColorPicker && (
-        <SketchPicker color={(getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color} onChange={handleColorChange} />
-    )}
-                   <Field
+
+                <Field name="toolTip">
+                  {({ field }) => (
+                    <textarea
+                      {...field}
+                      type="textarea"
+                      name="toolTip"
+                      className="form-control mb-2"
+                      placeholder="Tool TIP"
+                      style={{ height: "100px", width: "100%", backgroundColor: (values.toolTipColor ) ? values.toolTipColor + 25 : color + 25, color: (values.toolTipColor ) ? values.toolTipColor : color }}
+                      onFocus={() => setShowColorPicker(false)}
+
+                    />
+                  )}
+                </Field>{" "}
+                {showColorPicker && (
+                  <SketchPicker color={(values.toolTipColor ) ? values.toolTipColor : color} onChange={(newColor) => handleColorChange(newColor, setFieldValue)} />
+                )}
+                <Field
                   type="text"
                   name="toolTipColor"
                   className="form-control mb-2"
                   placeholder="Tool Tip color"
-                  value={ (getIPODataById?.toolTipData && getIPODataById.toolTipData[1]) ? getIPODataById.toolTipData[1] : color}
-                 
+                  value={(values.toolTipColor) ? values.toolTipColor : color}
+
                   onFocus={() => setShowColorPicker(true)}
-                        
+
                 />
               </div>
 
