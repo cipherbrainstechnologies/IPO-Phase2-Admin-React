@@ -96,28 +96,28 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       checkAllotment: values?.checkAllotment,
     };
     console.log("payload" , payload)
-    // if (ipoEdit) {
-    //   payload.id = getIPODataById?.id;
-    //   payload.algoliaID = getIPODataById?.algoliaID;
-    //   dispatch(updateIPO({ payload }));
-    // } else {
-    //   if (ID) {
-    //     if (ALGOLIAID) {
-    //       payload.id = ID;
-    //       payload.algoliaID = ALGOLIAID;
-    //       dispatch(createMainLineIpo({ payload }));
-    //     } else {
-    //       payload.id = ID;
-    //       payload.algoliaID = null;
-    //       dispatch(createMainLineIpo({ payload }));
-    //     }
-    //   } else {
-    //     payload.id = null;
-    //     payload.algoliaID = null;
+    if (ipoEdit) {
+      payload.id = getIPODataById?.id;
+      payload.algoliaID = getIPODataById?.algoliaID;
+      dispatch(updateIPO({ payload }));
+    } else {
+      if (ID) {
+        if (ALGOLIAID) {
+          payload.id = ID;
+          payload.algoliaID = ALGOLIAID;
+          dispatch(createMainLineIpo({ payload }));
+        } else {
+          payload.id = ID;
+          payload.algoliaID = null;
+          dispatch(createMainLineIpo({ payload }));
+        }
+      } else {
+        payload.id = null;
+        payload.algoliaID = null;
 
-    //     dispatch(createMainLineIpo({ payload }));
-    //   }
-    // }
+        dispatch(createMainLineIpo({ payload }));
+      }
+    }
   };
 
   return (
