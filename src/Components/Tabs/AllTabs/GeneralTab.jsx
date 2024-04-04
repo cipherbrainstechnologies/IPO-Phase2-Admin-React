@@ -64,7 +64,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
     const payload = {
       CategoryForIPOS: ipoType,
       companyName: values?.companyName,
-      toolTipData:[values?.toolTip , values.toolTipColor],
+      toolTipData:[values?.toolTip , color],
       companyDescription: values?.companyDescription,
       ObjectOfIssue: values?.ObjectOfIssue,
       faceValue: values?.faceValue,
@@ -95,28 +95,29 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       Risk: values?.Risk,
       checkAllotment: values?.checkAllotment,
     };
-    if (ipoEdit) {
-      payload.id = getIPODataById?.id;
-      payload.algoliaID = getIPODataById?.algoliaID;
-      dispatch(updateIPO({ payload }));
-    } else {
-      if (ID) {
-        if (ALGOLIAID) {
-          payload.id = ID;
-          payload.algoliaID = ALGOLIAID;
-          dispatch(createMainLineIpo({ payload }));
-        } else {
-          payload.id = ID;
-          payload.algoliaID = null;
-          dispatch(createMainLineIpo({ payload }));
-        }
-      } else {
-        payload.id = null;
-        payload.algoliaID = null;
+    console.log("payload" , payload)
+    // if (ipoEdit) {
+    //   payload.id = getIPODataById?.id;
+    //   payload.algoliaID = getIPODataById?.algoliaID;
+    //   dispatch(updateIPO({ payload }));
+    // } else {
+    //   if (ID) {
+    //     if (ALGOLIAID) {
+    //       payload.id = ID;
+    //       payload.algoliaID = ALGOLIAID;
+    //       dispatch(createMainLineIpo({ payload }));
+    //     } else {
+    //       payload.id = ID;
+    //       payload.algoliaID = null;
+    //       dispatch(createMainLineIpo({ payload }));
+    //     }
+    //   } else {
+    //     payload.id = null;
+    //     payload.algoliaID = null;
 
-        dispatch(createMainLineIpo({ payload }));
-      }
-    }
+    //     dispatch(createMainLineIpo({ payload }));
+    //   }
+    // }
   };
 
   return (
@@ -566,8 +567,8 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                   name="toolTipColor"
                   className="form-control mb-2"
                   placeholder="Tool Tip color"
-                  required
                   value={color}
+                 
                   onFocus={() => setShowColorPicker(true)}
                         
                 />
