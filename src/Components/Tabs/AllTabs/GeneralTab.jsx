@@ -67,6 +67,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
       CategoryForIPOS: ipoType,
       companyName: values?.companyName,
       toolTipData: [values?.toolTip, color],
+      leadManagerName:values?.leadManagerName,
       companyDescription: values?.companyDescription,
       ObjectOfIssue: values?.ObjectOfIssue,
       faceValue: values?.faceValue,
@@ -137,6 +138,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                 fromPrice: getIPODataById?.fromPrice,
                 toPrice: getIPODataById?.toPrice,
                 lotSize: getIPODataById?.lotSize,
+                leadManagerName:getIPODataById?.leadManagerName,
                 issueSize: getIPODataById?.issueSize,
                 freshIssue: getIPODataById?.freshIssue,
                 offerForSale: getIPODataById?.offerForSale,
@@ -190,6 +192,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                 preIssueShareHolding: "",
                 postIssueShareHolding: "",
                 promotersName: [],
+                leadManagerName:[],
                 Strength: [],
                 toolTip: "",
                 toolTipColor:"",
@@ -734,6 +737,82 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                                       <Field
                                         className="form-control mt-2"
                                         name={`promotersName[${index}].name`}
+                                      />
+                                      <div className="col-md-4">
+                                        <button
+                                          type="button"
+                                          data-repeater-delete
+                                          style={{
+                                            marginLeft: "20px",
+                                          }}
+                                          className="btn btn-sm btn-light-danger mb-2 mt-3 "
+                                          onClick={() =>
+                                            arrayHelpers.remove(index)
+                                          }
+                                        >
+                                          <i className="la la-trash-o"></i>
+                                          Delete
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )
+                              )}
+                              <button
+                                type="button"
+                                className="btn btn-light-primary mt-2"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  arrayHelpers.push({ name: "" });
+                                }}
+                              >
+                                <i className="la la-plus" /> Add
+                              </button>
+                            </div>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="d-flex justify-content-end">
+                  <button
+                    type="submit"
+                    // disabled={!Formik.dirty}
+                    className="btn btn-primary"
+                  >
+                    <span className="indicator-label">Save Changes</span>
+                  </button>
+                </div> */}
+              </div>
+
+              {/* Pradhyuman add  */}
+              <div className="card card-flush py-4">
+                <div className="card-header">
+                  <div className="card-title">
+                    <h2>Lead Managers List</h2>
+                  </div>
+                </div>
+
+                <div className="card-body pt-0">
+               
+
+                  <div id="kt_promoters_list">
+                    <div className="form-group">
+                      <label className="form-label">Lead Manager Name</label>
+                      <div data-repeater-list="kt_promoters_list">
+                        <FieldArray
+                          name="leadManagerName"
+                          render={(arrayHelpers) => (
+                            <div>
+                              {values?.leadManagerName?.map(
+                                (leadManagerName, index) => (
+                                  <div key={index}>
+                                    {/* {/* both these conventions do the same /} */}
+                                    <div className="col-md-8 d-flex">
+                                      <Field
+                                        className="form-control mt-2"
+                                        name={`leadManagerName[${index}].name`}
                                       />
                                       <div className="col-md-4">
                                         <button

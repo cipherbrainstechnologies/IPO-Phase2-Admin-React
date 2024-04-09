@@ -11,6 +11,7 @@ import ipoAllotSlice from "../slice/ipoAllotSlice";
 import termsAndConditionsSlice from "../slice/termsAndConditionsSlice";
 import contactUsSlice from "../slice/contactUsSlice";
 import popcardsSlice from "../slice/popcardsSlice";
+import versionSlice from "../slice/versionSlice";
 import bannersSlice from "../slice/bannersSlice";
 import usersSlice from "../slice/usersSlice";
 import modalSlice from "../slice/modalSlice";
@@ -34,6 +35,7 @@ const reducer = combineReducers({
   modalReducer: modalSlice,
   notificationReducer: notificationsSlice,
   paginationReducer: paginationSlice,
-  popcardsReducer: popcardsSlice
+  popcardsReducer: popcardsSlice,
+  versionReducer :versionSlice
 });
 export default reducer;

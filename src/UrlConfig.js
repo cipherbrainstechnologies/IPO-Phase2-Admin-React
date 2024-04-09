@@ -29,7 +29,9 @@ export const ADMIN_UPDATE_BANNER= "card/UpdateCard/";
 export const ADMIN_UPDATE_BANNER_IMAGE = "card/updateCardImage/";
 export const ADMIN_GET_BANNER_BY_ID = "card/GetSingleCard/";
 export const ADMIN_BANNER_DELETE = "card/DeleteCard";
-
+export const GETALL_VERSION ="versionControl/"
+export const GETSINGLE_VERSION ="versionControl/"
+export const UPDATE_SINGLE_VERSION ="versionControl/"
 export const ADMIN_CREATE_POPUPCARD = "card/popUPImage";
 export const ADMIN_UPDATE_POPUPCARD= "card/updatePopUP";
 export const ADMIN_GET_POPUPCARD_BY_ID = "card/getPopUP/";
