@@ -5,7 +5,7 @@ export const ADMIN_CREATE_MAIN_IPO = "createMainlineIPO/";
 export const ADMIN_GET_IPO_BY_ID = "GetIdByMainLineIpo/";
 export const ADMIN_UPDATE_IPO = "UpdateMainLineIpo/";
 export const ADMIN_DELETE_IPO = "DeleteIPO";
-
+export const ADMIN_ALLOTMENTOUT_NOTIFICATION="AllotmentOUTNotification"
 export const ADMIN_IMG_UPLOAD = "uploadImage/";
 export const ADMIN_META_IMAGE = "uploadMetaImage/";
 

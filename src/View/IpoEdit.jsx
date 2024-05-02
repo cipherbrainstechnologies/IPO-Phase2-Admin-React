@@ -14,6 +14,8 @@ import {
   uploadIMG,
 } from "../redux/slice/mainLineIpoSlices";
 import "../assets/css/FilePreviewer.css";
+import {ADMIN_ALLOTMENTOUT_NOTIFICATION} from "../../src/UrlConfig"
+import{ BASE_URL_FOR_ADMIN} from "../../src/UrlConfig"
 
 import "../assets/css/customStepperStyle.css";
 import Tabs from "../Components/Tabs/Tabs";
@@ -22,6 +24,7 @@ import SpinnerLoader from "../Components/SpinnerLoader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { dateFormator } from "../Constants/commonConstants";
+import axios from "axios";
 const EditIpo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -51,18 +54,49 @@ const EditIpo = () => {
         IPOUpcomingDate: currentDate,
         algoliaID: getIPODataById?.algoliaID,
       };
-      dispatch(updateIPO({ payload }));
-    } else {
+      dispatch(updateIPO({ payload })); // comment kryu test
+    }else if (e?.target?.value === "AllotmentOut") {
+      // Perform your logic for Allotment Out status
+      let date = moment();
+
+      let currentDate = date.format();
       let payload = {
         CategoryForIPOS: ipoType,
         id: getIPODataById?.id,
         IPOStatus: e?.target?.value,
         algoliaID: getIPODataById?.algoliaID,
       };
+      let paylodForNotificartion={
+        IPOId :getIPODataById?.id,
+        IPOStatus:e?.target?.value
+      }
+      // console.log("Perform logic for Allotment Out" , paylodForNotificartion);
       dispatch(updateIPO({ payload }));
+      AllotmentoutNotificartionAPI(paylodForNotificartion)
+
+    }  else {
+      let payload = {
+        CategoryForIPOS: ipoType,
+        id: getIPODataById?.id,
+        IPOStatus: e?.target?.value,
+        algoliaID: getIPODataById?.algoliaID,
+      };
+      dispatch(updateIPO({ payload }));  // comment kryu test
     }
   };
 
+  const AllotmentoutNotificartionAPI=async(data)=>{
+    try {
+      // Make a POST request to your API endpoint
+      const response = await axios.post(BASE_URL_FOR_ADMIN+ADMIN_ALLOTMENTOUT_NOTIFICATION, data);
+      // Check if the request was successful
+   console.log("res" , response)
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error('Error:', error);
+      // throw error;
+    }
+  };
   const DatePickerField = ({ name, value, onChange }) => {
     return (
       <DatePicker
