@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 import {
+  ADMIN_GETALL_PREMIUM_USERS,
   ADMIN_GETALL_USERS,
   ADMIN_GET_SINGLE_USER,
   ADMIN_UPDATE_USER,
@@ -23,6 +24,27 @@ export const getAllUsers = createAsyncThunk(
     try {
       const response = await axios.post(
         `${BASE_URL_FOR_ADMIN + ADMIN_GETALL_USERS}`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response?.data?.data;
+    } catch (error) {
+      toast.error("Somthing went wrong");
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+export const getAllPremiumUsers = createAsyncThunk(
+  "admin/getPremiumUsers",
+  async ({payload}, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL_FOR_ADMIN + ADMIN_GETALL_PREMIUM_USERS}`,
+        { "isPremium": true },
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -90,7 +112,7 @@ const usersSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      //READ
+      //READ getAllPremiumUsers
       .addCase(getAllUsers.pending, (state) => {
         state.isLoading = true;
       })
@@ -99,6 +121,16 @@ const usersSlice = createSlice({
         state.getAllData = action.payload;
       })
       .addCase(getAllUsers.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getAllPremiumUsers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllPremiumUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.premiumUsers = action.payload;
+      })
+      .addCase(getAllPremiumUsers.rejected, (state) => {
         state.isLoading = false;
       })
       //UPDATE

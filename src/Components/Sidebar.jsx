@@ -199,6 +199,13 @@ const Sidebar = () => {
               </div>
 
               <div className="menu-item">
+                <NavLink to="/premium-user" className="menu-link">
+                  <UserIcon />
+                  <span className="menu-title">Premium User</span>
+                </NavLink>
+              </div>
+
+              <div className="menu-item">
                 <NavLink to="/notifications" className="menu-link">
                   <NotificationsIcon />
                   <span className="menu-title">Notifications</span>

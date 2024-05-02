@@ -17,6 +17,8 @@ const PrivacyPolicy = lazy(() => import("./View/PrivacyPolicy"));
 const TermsAndConditions = lazy(() => import("./View/TermsAndConditions"));
 const ContactUs = lazy(() => import("./View/ContactUs"));
 const Users = lazy(() => import("./View/Users"));
+const PremiumUsers = lazy(() => import("./View/Premiumuser"));
+
 const Notifications = lazy(() => import("./View/Notifications"));
 const AddIpo = lazy(() => import("./View/AddIpo"));
 const IpoEdit = lazy(() => import("./View/IpoEdit"));
@@ -90,6 +92,8 @@ const App = () => {
           element={<ProtectedRoute Component={ContactUs} />}
         />
         <Route path="user" element={<ProtectedRoute Component={Users} />} />
+        <Route path="premium-user" element={<ProtectedRoute Component={PremiumUsers} />} />
+
         <Route
           path="notifications"
           element={<ProtectedRoute Component={Notifications} />}

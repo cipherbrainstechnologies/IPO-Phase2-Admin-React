@@ -1,5 +1,5 @@
 // export const BASE_URL_FOR_ADMIN = "https://api.ipodekho.com/";
-export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend.onrender.com/";
+export const BASE_URL_FOR_ADMIN = "http://localhost:5000/";
 export const ADMIN_GET_ALL_MAIN_IPO = "GetMainLineIpo";
 export const ADMIN_CREATE_MAIN_IPO = "createMainlineIPO/";
 export const ADMIN_GET_IPO_BY_ID = "GetIdByMainLineIpo/";
@@ -62,6 +62,7 @@ export const ADMIN_GETALL_TERMS_CONDITIONS =
 export const ADMIN_GETALL_CONTACTS = "contact/getAllContact";
 
 export const ADMIN_GETALL_USERS = "getAllUser";
+export const ADMIN_GETALL_PREMIUM_USERS="getPremiumUsers"
 export const ADMIN_UPDATE_USER = "updateProfile";
 export const ADMIN_GET_SINGLE_USER = "getSingleUser/";
 
