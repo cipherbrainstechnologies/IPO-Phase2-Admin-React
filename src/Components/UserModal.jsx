@@ -77,6 +77,7 @@ const UserModal = ({
     // formData.append("phoneNumber", "+" + values?.phoneNumber);
     // formData.append("photoURL", file);
     // formData.append("uid", singleUserData?.uid);
+    console.log("onsubmit" , values.isPremium)
     let payload = {
       payload: {
         displayName: values?.displayName,
@@ -84,6 +85,9 @@ const UserModal = ({
         // photoURL: fileDataURL,
         phoneNumber: values?.phoneNumber,
         id: singleUserData?.uid,
+        customClaims:{
+          isPremium:values.isPremium
+        }
         // algoliaID: singleUserData?.algoliaID,
       },
     };
@@ -131,6 +135,7 @@ const UserModal = ({
               displayName: singleUserData?.displayName,
               email: singleUserData?.email,
               phoneNumber: singleUserData?.phoneNumber,
+              isPremium: singleUserData?.customClaims?.isPremium
             }}
             onSubmit={(values, { resetForm }) => {
               handleSubmit(values);
@@ -212,6 +217,44 @@ const UserModal = ({
                         )}
                       </Field>
                     </div>
+                    {/* <div className="fv-row mb-7">
+                      <label className="fw-semibold fs-6 mb-2">
+                        Premium
+                      </label>
+
+                      <Field
+                        type="text"
+                        name="isPremium"
+                        className="form-control form-control-solid mb-3 mb-lg-0"
+                        placeholder="Premium"
+                      />
+                    </div> */}
+                  <div className="fv-row mb-7">
+  <label className="fw-semibold fs-6 mb-2">Premium</label>
+  
+  <div>
+    <label className="form-check-label me-3">
+      <Field
+        type="radio"
+        name="isPremium"
+        value="true"
+        className="form-check-input"
+        checked={values?.isPremium == true}
+      />
+      True
+    </label>
+    <label className="form-check-label">
+      <Field
+        type="radio"
+        name="isPremium"
+        value="false"
+        className="form-check-input"
+        checked={values.isPremium !== true}
+      />
+      False
+    </label>
+  </div>
+</div>
                   </div>
 
                   <div className="text-center pt-15">
