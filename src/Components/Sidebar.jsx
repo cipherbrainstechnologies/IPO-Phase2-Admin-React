@@ -212,6 +212,12 @@ const Sidebar = () => {
                 </NavLink>
               </div>
               <div className="menu-item">
+                <NavLink to="/AdControl" className="menu-link">
+                  <NotificationsIcon />
+                  <span className="menu-title">Ad Control</span>
+                </NavLink>
+              </div>
+              <div className="menu-item">
                 <NavLink to="/VersionControl" className="menu-link">
                   <NotificationsIcon />
                   <span className="menu-title">Version Control</span>

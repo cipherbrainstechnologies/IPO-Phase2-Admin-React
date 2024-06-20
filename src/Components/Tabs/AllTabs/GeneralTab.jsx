@@ -4,7 +4,8 @@ import ReactQuill from "react-quill";
 import "../../../assets/css/style.bundle.css";
 import "../../../assets/plugins/global/plugins.bundle.css";
 import { modules } from "../../../Constants/commonConstants";
-import { Formik, Form, Field, FieldArray } from "formik";
+import { Formik, Form, Field, FieldArray , useFormikContext} from "formik";
+import slugify from 'react-slugify';
 import {
   createMainLineIpo,
   getAllMainLineIpo,
@@ -39,6 +40,14 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
   const { activeTab } = useContext(TabContext);
   const { ID, ALGOLIAID, getIPODataById, getAllMainLineIpoData, updatedIpo } =
     useSelector((state) => state.mainLineIpoSlice);
+    const { values, setFieldValue } = useFormikContext()?? {};
+
+    useEffect(() => {
+      // Update the slug whenever companyName changes
+      if (values && values.companyName)  {
+        setFieldValue('slug', slugify(values?.companyName));
+      }
+    }, [values?.companyName, setFieldValue,values?.slug]);
   useEffect(() => {
     if (ipoPrefillData?.data?.id) {
       const payload = {
@@ -62,9 +71,12 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
   useEffect(() => {
     localStorage.setItem("ID", ipoPrefillData?.data?.id);
   }, []);
+  const [slug, setSlug] = useState('');
+
   const handleSubmit = (values) => {
     const payload = {
       CategoryForIPOS: ipoType,
+      slug:values?.slug,
       companyName: values?.companyName,
       toolTipData: [values?.toolTip, color],
       leadManagerName:values?.leadManagerName,
@@ -141,6 +153,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                 leadManagerName:getIPODataById?.leadManagerName,
                 issueSize: getIPODataById?.issueSize,
                 freshIssue: getIPODataById?.freshIssue,
+                slug:getIPODataById?.slug,
                 offerForSale: getIPODataById?.offerForSale,
                 reatailQuota: getIPODataById?.reatailQuota,
                 qibQuota: getIPODataById?.qibQuota,
@@ -178,6 +191,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                 freshIssue: "",
                 offerForSale: "",
                 reatailQuota: "",
+                slug:"",
                 qibQuota: "",
                 nilQuota: "",
                 retailApp: "",
@@ -225,6 +239,22 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                       className="form-control mb-2"
                       placeholder="Comapny Name"
                       required
+                      onChange={(e) => {
+                        // Manually update field value
+                        setFieldValue("companyName", e.target.value);
+                        setFieldValue("slug",slugify(e.target.value))
+                        // Optionally, perform other actions based on the change
+                      }}
+                    />
+                  </div>
+                  <div className="mb-10 fv-row">
+                    <label className="required form-label">Slug</label>
+                    <Field
+                      type="text"
+                      name="slug"
+                      className="form-control "
+                      placeholder="Slug"
+                      disabled
                     />
                   </div>
 

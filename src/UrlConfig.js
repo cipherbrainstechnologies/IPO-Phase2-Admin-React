@@ -1,5 +1,7 @@
-// export const BASE_URL_FOR_ADMIN = "https://api.ipodekho.com/";
-export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend.onrender.com/";
+export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend-ew90.onrender.com/";
+// export const BASE_URL_FOR_ADMIN = "http://localhost:1000/";
+// export const BASE_URL_FOR_ADMIN = "http://localhost:5000/";
+
 export const ADMIN_GET_ALL_MAIN_IPO = "GetMainLineIpo";
 export const ADMIN_CREATE_MAIN_IPO = "createMainlineIPO/";
 export const ADMIN_GET_IPO_BY_ID = "GetIdByMainLineIpo/";
@@ -32,6 +34,13 @@ export const ADMIN_BANNER_DELETE = "card/DeleteCard";
 export const GETALL_VERSION ="versionControl/"
 export const GETSINGLE_VERSION ="versionControl/"
 export const UPDATE_SINGLE_VERSION ="versionControl/"
+export const GetSingleAD ="AdControl/"
+export const GetAllAD ="AdControl/"
+export const UpdateSingleAD ="AdControl/"
+
+
+
+
 export const ADMIN_CREATE_POPUPCARD = "card/popUPImage";
 export const ADMIN_UPDATE_POPUPCARD= "card/updatePopUP";
 export const ADMIN_GET_POPUPCARD_BY_ID = "card/getPopUP/";

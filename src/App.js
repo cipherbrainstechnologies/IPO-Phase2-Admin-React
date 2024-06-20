@@ -10,6 +10,8 @@ const NewsEdit = lazy(() => import("./View/NewsEdit"));
 const Offers = lazy(() => import("./View/Offers"));
 const Banners = lazy(() => import("./View/Banners"));
 const VersionControl =lazy(()=>import("./View/VersionControl"))
+const AdControl =lazy(()=>import("./View/AdControl"))
+
 const Popupcards = lazy(() => import("./View/Popupcards"));
 const Faqs = lazy(() => import("./View/Faqs"));
 const IpoAllotmentTips = lazy(() => import("./View/IpoAllotmentTips"));
@@ -71,6 +73,8 @@ const App = () => {
         <Route path="offers" element={<ProtectedRoute Component={Offers} />} />
         <Route path="banners" element={<ProtectedRoute Component={Banners} />} />
         <Route path="VersionControl" element={<ProtectedRoute Component={VersionControl} />} />
+        <Route path="AdControl" element={<ProtectedRoute Component={AdControl} />} />
+        
 
         
         <Route path="popupcards" element={<ProtectedRoute Component={Popupcards} />} />

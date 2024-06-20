@@ -72,6 +72,12 @@ const UserModal = ({
   };
 
   const handleSubmit = (values) => {
+    let formData = new FormData();
+    formData.append("displayName", values?.displayName);
+  formData.append("email", values?.email);
+  formData.append("phoneNumber", "+" + values?.phoneNumber);
+  formData.append("id", singleUserData?.uid);
+  formData.append("customClaims[isPremium]", values.isPremium);
     // formData.append("displayName", values?.displayName);
     // formData.append("email", values?.email);
     // formData.append("phoneNumber", "+" + values?.phoneNumber);
@@ -91,7 +97,8 @@ const UserModal = ({
         // algoliaID: singleUserData?.algoliaID,
       },
     };
-    dispatch(updateUsers({ payload }));
+    dispatch(updateUsers(formData));
+
     // setFileDataURL("");
     setShowModal({
       ...showModal,
