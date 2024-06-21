@@ -1,5 +1,5 @@
-export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend-1.onrender.com/";
-// export const BASE_URL_FOR_ADMIN = "http://localhost:1000/";
+// export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend-1.onrender.com/";
+export const BASE_URL_FOR_ADMIN = "https://api.ipodekho.com/";
 // export const BASE_URL_FOR_ADMIN = "http://localhost:5000/";
 
 export const ADMIN_GET_ALL_MAIN_IPO = "GetMainLineIpo";
