@@ -1,4 +1,4 @@
-export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend-ew90.onrender.com/";
+export const BASE_URL_FOR_ADMIN = "https://ipodekho-phase2-admin-backend-1.onrender.com";
 // export const BASE_URL_FOR_ADMIN = "http://localhost:1000/";
 // export const BASE_URL_FOR_ADMIN = "http://localhost:5000/";
 
