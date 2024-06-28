@@ -38,7 +38,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
   };
   const ipoType = localStorage.getItem("ipoType");
   const { activeTab } = useContext(TabContext);
-  const { ID, ALGOLIAID, getIPODataById, getAllMainLineIpoData, updatedIpo } =
+  const { ID, ALGOLIAID, getIPODataById, getAllMainLineIpoData, updatedIpo , isLoading } =
     useSelector((state) => state.mainLineIpoSlice);
     const { values, setFieldValue } = useFormikContext()?? {};
 
@@ -223,7 +223,7 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
         >
           {({ values, errors, touched , setFieldValue }) => (
             <Form>
-              <div className="card card-flush py-4">
+           <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>IPO Info</h2>
@@ -882,13 +882,13 @@ const GeneralTab = ({ ipoEdit, ipoPrefillData }) => {
                   </div>
                 </div>
                 <div className="d-flex justify-content-end">
-                  <button
+                { isLoading ? null : <button
                     type="submit"
                     // disabled={!Formik.dirty}
                     className="btn btn-primary"
                   >
                     <span className="indicator-label">Save Changes</span>
-                  </button>
+                  </button>}
                 </div>
               </div>
             </Form>
