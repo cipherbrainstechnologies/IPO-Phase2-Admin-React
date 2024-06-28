@@ -4,9 +4,9 @@ import axios from "axios";
 import {
   
     BASE_URL_FOR_ADMIN,
-    GetAllAD,
-    GetSingleAD,
-    UpdateSingleAD,
+    GetAll_AD,
+    GetSingle_AD,
+    UpdateSingle_AD,
    
 } from "../../UrlConfig";
 import { toast } from "react-toastify";
@@ -26,7 +26,7 @@ export const getSingleAd = createAsyncThunk(
   async ({ payload }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${BASE_URL_FOR_ADMIN + GetSingleAD}``${payload.id}`,
+        `${BASE_URL_FOR_ADMIN + GetSingle_AD}``${payload.id}`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
@@ -38,17 +38,17 @@ export const getSingleAd = createAsyncThunk(
       return response?.data?.data;
     } catch (error) {
       console.log("error" , error)
-      toast.error("Somthing went wrong");
+      toast.error("Somthing went wrong while getting single ad");
       return rejectWithValue(error.response.data);
     }
   }
 );
-export const getAllVersion = createAsyncThunk(
+export const getAllAd = createAsyncThunk(
     "admin/GetAllAD",
     async ({ payload }, { rejectWithValue }) => {
       try {
         const response = await axios.get(
-          `${BASE_URL_FOR_ADMIN + GetAllAD}`, 
+          `${BASE_URL_FOR_ADMIN + GetAll_AD}`, 
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -66,12 +66,13 @@ export const getAllVersion = createAsyncThunk(
     }
   );
 
-export const updateSingleversion = createAsyncThunk(
+export const updateSingleAd = createAsyncThunk(
   "admin/UpdateSingleAD",
   async ({ payload }, { rejectWithValue }) => {
+    console.log("url while update ad" , BASE_URL_FOR_ADMIN + UpdateSingle_AD +payload.id )
     try {
       const response = await axios.put(
-        BASE_URL_FOR_ADMIN + UpdateSingleAD +payload.id,
+        BASE_URL_FOR_ADMIN + UpdateSingle_AD +payload.id,
         payload,
         {
           headers: {
@@ -80,6 +81,9 @@ export const updateSingleversion = createAsyncThunk(
           },
         }
       );
+      console.log("payload while update" ,payload)
+
+      console.log("data" ,response?.data?.data)
       toast.success("Ad updated successfully");
       return response?.data?.data;
     } catch (error) {
@@ -98,14 +102,14 @@ const popcardsSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-    .addCase(getAllVersion.pending, (state) => {
+    .addCase(getAllAd.pending, (state) => {
       state.isLoading = true;
     })
-    .addCase(getAllVersion.fulfilled, (state, action) => {
+    .addCase(getAllAd.fulfilled, (state, action) => {
       state.isLoading = false;
       state.getAllAdData = action.payload;
     })
-    .addCase(getAllVersion.rejected, (state) => {
+    .addCase(getAllAd.rejected, (state) => {
       state.isLoading = false;
     })
 
@@ -120,14 +124,14 @@ const popcardsSlice = createSlice({
       .addCase(getSingleAd.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(updateSingleversion.pending, (state) => {
+      .addCase(updateSingleAd.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(updateSingleversion.fulfilled, (state, action) => {
+      .addCase(updateSingleAd.fulfilled, (state, action) => {
         state.isLoading = false;
         state.editAdId = action.payload;
       })
-      .addCase(updateSingleversion.rejected, (state) => {
+      .addCase(updateSingleAd.rejected, (state) => {
         state.isLoading = false;
       })
       

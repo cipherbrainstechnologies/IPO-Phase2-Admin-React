@@ -9,24 +9,24 @@ import  AppleLogo  from "../assets/inter.png";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { styled } from "@mui/material";
-import { getAllVersion, updateSingleversion } from "../redux/slice/versionSlice";
+import { getAllAd  , updateSingleAd} from "../redux/slice/advertisementSlice";
 
 const AdControl = ({ ipoEdit }) => {
     const dispatch = useDispatch();
 
-    const { getAllVersionData, getSingleVersion,
-        editVersionData} = useSelector(
-        (state) => state?.versionReducer
+    const { getAllAdData, getSingleAd,
+        editAdId} = useSelector(
+        (state) => state?.adReducer
     );
     useEffect(() => {
     let payload={}
-        dispatch(getAllVersion({payload}));
+        dispatch(getAllAd({payload}));
       }, []);
-console.log("getallversionData===>" , getAllVersionData)
+console.log("getallversionData===>" , getAllAdData)
 const [modalData, setModalData] = useState(null);
 const openEditModal = (index) => {
-    const version = getAllVersionData[index];
-    setModalData(version);
+    const adID = getAllAdData[index];
+    setModalData(adID);
     // Code to open modal
 };
 
@@ -90,18 +90,18 @@ const handleCloseModal = () => {
 
     const handleSubmit = async(values) => {
         // Your handleSubmit logic here
-        console.log("version control", values)
+        console.log("adID control", values)
      
         let payload = {
-            platform:values.platform,
-            forceUpdate:values.forceUpdate,
-            version:values.version,
+            type:values.type,
+            enable:values.enable,
+            adID:values.adID,
             id:values.id
         }
         let pay={}
-        console.log("payload in version control" , payload)
-      await  dispatch(updateSingleversion({payload}))
-      await dispatch(getAllVersion({pay}));
+        console.log("payload in adID control" , payload)
+      await  dispatch(updateSingleAd({payload}))
+      await dispatch(getAllAd({pay}));
         handleCloseModal()
     }
 
@@ -111,11 +111,11 @@ const handleCloseModal = () => {
         <>
             <div className="card">
                 <Formik
-                    initialValues={getAllVersionData.reduce((acc, obj, index) => {
+                    initialValues={getAllAdData.reduce((acc, obj, index) => {
                         acc[`id_${index}`] = obj.id;
-                        acc[`platform${index}`] = obj.platform;
-                        acc[`version${index}`] = obj.version;
-                        acc[`forceUpdate${index}`] = obj.forceUpdate;
+                        acc[`type${index}`] = obj.type;
+                        acc[`adID${index}`] = obj.adID;
+                        acc[`enable${index}`] = obj.enable;
                         return acc;
                     }, {})}
                     onSubmit={(values) => {
@@ -142,33 +142,42 @@ const handleCloseModal = () => {
                                                 <tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                                     <th>Advertisement type</th>
                                                     <th>Advertisement id</th>
+                                                    <th>Ad Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {getAllVersionData.map((obj, index) => (
+                                                {getAllAdData.map((obj, index) => (
                                                     <tr key={index}>
                                                         <td className="card-title">
-                                                            {obj.platform === "Android" && (
-                                                              
-                                                                <img src={GoogleLogo} style={{height:"155px" , marginRight:15}}/>
-                                                            )}
-                                                            {obj.platform === "IOS" && (
-                                                                 <img src={AppleLogo} style={{height:"155px" , marginRight:15}}/>
-                                                            )}
-                                                            {obj.platform}
+                                                        
+                                                            {obj.type}
                                                         </td>
                                                         <td>
                                                             <Field
                                                                 type="number"
                                                                 className="form-control"
-                                                                name={`version${index}`}
+                                                                name={`adID${index}`}
                                                                 disabled
-                                                                placeholder={`${obj.version}`}
+                                                                placeholder={`${obj.adID}`}
                                                                 
                                                             />
                                                         </td>
-                                                     
+                                                        <td>
+                                                            {console.log("trueeee==>" , values[`enable${index}`] )}
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <IOSSwitch
+                                                                    checked={obj.enable}
+                                                                    name={`enable${index}`}
+                                                                        disabled
+                                                                        sx={{ m: 1 }}
+                                                                    />
+
+                                                                }
+                                                            />
+
+                                                        </td>
                                                         <td>
                                                             <button className="btn btn-primary" onClick={() => openEditModal(index)}>
                                                                 <span className="indicator-label">Edit</span>
@@ -197,9 +206,9 @@ const handleCloseModal = () => {
                         <h2>Edit Ad ID</h2>
                         <Formik
                             initialValues={{
-                                platform: modalData.platform,
-                                version: modalData.version,
-                                forceUpdate: modalData.forceUpdate,
+                                type: modalData.type,
+                                adID: modalData.adID,
+                                enable: modalData.enable,
                                 id:modalData.id
                             }}
                             onSubmit={(values) => {
@@ -214,15 +223,23 @@ const handleCloseModal = () => {
                                     <div className="form-group">
                                     <label className="fw-semibold fs-6 mb-2">Ad Type:</label>
                                      
-                                        <Field type="text" name="platform" className="form-control" disabled />
+                                        <Field type="text" name="type" className="form-control" disabled />
                                     </div>
                                     <div className="form-group">
                                     <label className="fw-semibold fs-6 mb-2">ID:</label>
 
-                                        <Field type="text" name="version" className="form-control" />
+                                        <Field type="text" name="adID" className="form-control" />
                                     </div>
                                     <div className="form-group">
-                                       
+                                    <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    checked={values.enable}
+                                                    onChange={(event) => setFieldValue("enable",!values.enable)}
+                                                />
+                                            }
+                                            label="Ad Status"
+                                        />
                                     </div>
                                     <div style={{marginTop:20 , marginBottom:20}}>
                                     <span style={{color:"red"}}>

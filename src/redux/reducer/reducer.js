@@ -17,6 +17,7 @@ import usersSlice from "../slice/usersSlice";
 import modalSlice from "../slice/modalSlice";
 import notificationsSlice from "../slice/notificationsSlice";
 import paginationSlice from "../slice/paginationSlice";
+import advertisementSlice from "../slice/advertisementSlice";
 const reducer = combineReducers({
   //slice
   mainLineIpoSlice: mainLineIpoSlices,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   notificationReducer: notificationsSlice,
   paginationReducer: paginationSlice,
   popcardsReducer: popcardsSlice,
-  versionReducer :versionSlice
+  versionReducer :versionSlice,
+  adReducer:advertisementSlice
 });
 export default reducer;
