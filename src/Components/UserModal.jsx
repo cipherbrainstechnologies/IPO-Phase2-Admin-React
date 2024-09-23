@@ -74,7 +74,7 @@ const UserModal = ({
   const handleSubmit = (values) => {
     let formData = new FormData();
     formData.append("displayName", values?.displayName);
-  formData.append("email", values?.email);
+  // formData.append("email", values?.email);
   formData.append("phoneNumber", "+" + values?.phoneNumber);
   formData.append("id", singleUserData?.uid);
   formData.append("customClaims[isPremium]", values.isPremium);
@@ -87,7 +87,7 @@ const UserModal = ({
     let payload = {
       payload: {
         displayName: values?.displayName,
-        email: values?.email,
+        // email: values?.email,
         // photoURL: fileDataURL,
         phoneNumber: values?.phoneNumber,
         id: singleUserData?.uid,

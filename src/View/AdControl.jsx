@@ -96,7 +96,8 @@ const handleCloseModal = () => {
             type:values.type,
             enable:values.enable,
             adID:values.adID,
-            id:values.id
+            id:values.id,
+            timer:values.timer ? values.timer : "-"
         }
         let pay={}
         console.log("payload in adID control" , payload)
@@ -142,6 +143,7 @@ const handleCloseModal = () => {
                                                 <tr className="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                                     <th>Advertisement type</th>
                                                     <th>Advertisement id</th>
+                                                    <th>Interval in Miliseconds</th>
                                                     <th>Ad Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -163,6 +165,16 @@ const handleCloseModal = () => {
                                                                 
                                                             />
                                                         </td>
+                                                          <td>
+                                                            <Field
+                                                                type="number"
+                                                                className="form-control"
+                                                                name={`adID${index}`}
+                                                                disabled
+                                                                placeholder={obj.timer ? `${obj.timer}` :"Not Applicable"}
+                                                                
+                                                            />
+                                                        </td>
                                                         <td>
                                                             {console.log("trueeee==>" , values[`enable${index}`] )}
                                                             <FormControlLabel
@@ -173,10 +185,8 @@ const handleCloseModal = () => {
                                                                         disabled
                                                                         sx={{ m: 1 }}
                                                                     />
-
                                                                 }
                                                             />
-
                                                         </td>
                                                         <td>
                                                             <button className="btn btn-primary" onClick={() => openEditModal(index)}>
@@ -209,6 +219,7 @@ const handleCloseModal = () => {
                                 type: modalData.type,
                                 adID: modalData.adID,
                                 enable: modalData.enable,
+                                timer:modalData.timer,
                                 id:modalData.id
                             }}
                             onSubmit={(values) => {
@@ -230,6 +241,11 @@ const handleCloseModal = () => {
 
                                         <Field type="text" name="adID" className="form-control" />
                                     </div>
+                                   { console.log("values" , values.type)}
+                                  {(values.type == "InterButtonAndroid"||values.type == "InterButtonIOS" || values.type =="InterTimerAndroid" || values.type =="InterTimerIOS")&&  <div className="form-group">
+                                    <label className="fw-semibold fs-6 mb-2">Interval:</label>
+                                        <Field type="text" name="timer" className="form-control" />
+                                    </div>}
                                     <div className="form-group">
                                     <FormControlLabel
                                             control={

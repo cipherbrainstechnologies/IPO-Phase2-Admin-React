@@ -26,6 +26,8 @@ const AddIpo = lazy(() => import("./View/AddIpo"));
 const IpoEdit = lazy(() => import("./View/IpoEdit"));
 const IpoDetail = lazy(() => import("./View/IpoDetail"));
 const SignIn = lazy(() => import("./View/SignIn"));
+const Accessibility = lazy(() => import("./View/Accessibility"));
+
 const App = () => {
   return (
     <>
@@ -97,6 +99,7 @@ const App = () => {
         />
         <Route path="user" element={<ProtectedRoute Component={Users} />} />
         <Route path="premium-user" element={<ProtectedRoute Component={PremiumUsers} />} />
+        <Route path="Accessibility" element={<ProtectedRoute Component={Accessibility} />} />
 
         <Route
           path="notifications"

@@ -55276,3 +55276,7 @@ html:not([data-theme="dark"]) {
 .gmp_radio.form-check-custom.form-check-danger .form-check-input:checked {
   background-color: var(--kt-danger);
 }
+.app-sidebar-menu.overflow-hidden.flex-column-fluid {
+  height: calc(100vh - 70px);
+  overflow-y: scroll !important;
+}

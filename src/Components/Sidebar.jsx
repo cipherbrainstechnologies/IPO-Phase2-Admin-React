@@ -223,6 +223,12 @@ const Sidebar = () => {
                   <span className="menu-title">Version Control</span>
                 </NavLink>
               </div>
+              <div className="menu-item">
+                <NavLink to="/Accessibility" className="menu-link">
+                  <NotificationsIcon />
+                  <span className="menu-title">Purchase Control</span>
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>

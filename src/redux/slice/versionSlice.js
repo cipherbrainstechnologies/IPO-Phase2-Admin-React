@@ -7,7 +7,8 @@ import {
     GETALL_VERSION,
     GETSINGLE_VERSION,
     UPDATE_SINGLE_VERSION,
-   
+    GETALL_PURCHASEPLAN,
+    UPDATE_SINGLE_PURCHASE
 } from "../../UrlConfig";
 import { toast } from "react-toastify";
 
@@ -17,6 +18,8 @@ const initialState = {
   getAllVersionData: [],
   getSingleVersion:[],
   editVersionData: [],
+  editPurchaseData:[],
+  getAllPurchaseData: [],
  
 };
 
@@ -65,7 +68,51 @@ export const getAllVersion = createAsyncThunk(
       }
     }
   );
-
+  export const getPurchaseAll = createAsyncThunk(
+    "admin/GETALL_PURCHASEPLAN",
+    async ({ payload }, { rejectWithValue }) => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL_FOR_ADMIN + GETALL_PURCHASEPLAN}`,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("response get all Purchase",response.data.data)
+        return response?.data?.data;
+      } catch (error) {
+        console.log("error" , error)
+        toast.error("Somthing went wrong");
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
+  export const updateSinglePurchase = createAsyncThunk(
+    "admin/UPDATE_SINGLE_Purchase",
+    async ({ payload }, { rejectWithValue }) => {
+      try {
+        const response = await axios.put(
+          BASE_URL_FOR_ADMIN + UPDATE_SINGLE_PURCHASE +payload.id,
+          payload,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": 'application/json',
+            },
+          }
+        );
+        toast.success("Premium update successfully");
+        return response?.data?.data;
+      } catch (error) {
+        console.log("error in Premium update" , error)
+        toast.error("Somthing went wrong");
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
 export const updateSingleversion = createAsyncThunk(
   "admin/UPDATE_SINGLE_VERSION",
   async ({ payload }, { rejectWithValue }) => {
@@ -108,7 +155,16 @@ const popcardsSlice = createSlice({
     .addCase(getAllVersion.rejected, (state) => {
       state.isLoading = false;
     })
-
+    .addCase(getPurchaseAll.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(getPurchaseAll.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.getAllPurchaseData = action.payload;
+    })
+    .addCase(getPurchaseAll.rejected, (state) => {
+      state.isLoading = false;
+    })
 
       .addCase(getSingleVersion.pending, (state) => {
         state.isLoading = true;
@@ -130,7 +186,17 @@ const popcardsSlice = createSlice({
       .addCase(updateSingleversion.rejected, (state) => {
         state.isLoading = false;
       })
-      
+
+      .addCase(updateSinglePurchase.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateSinglePurchase.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.editPurchaseData = action.payload;
+      })
+      .addCase(updateSinglePurchase.rejected, (state) => {
+        state.isLoading = false;
+      })
       
   },
 });
